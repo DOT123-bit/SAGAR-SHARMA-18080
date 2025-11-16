@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cryptography Blog – Substitution Techniques</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ======== GLOBAL PAGE STYLE ======== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0a0f24;
+    color: #d8d8e0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
+header {
+    background: linear-gradient(135deg, #3e1bdb, #0f5ec7);
+    padding: 60px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3rem;
+    text-shadow: 0px 0px 20px #000;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 0;
+}
+
+/* ======== BLOG SECTIONS ======== */
+.section {
+    margin-bottom: 60px;
+    padding: 30px;
+    background: rgba(255,255,255,0.04);
+    border-left: 5px solid #3e8bff;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.section:hover {
+    transform: scale(1.02);
+    background: rgba(255,255,255,0.07);
+}
+
+.section h2 {
+    color: #3e8bff;
+    font-size: 2rem;
+}
+
+/* ======== INTERACTIVE TOOL ======== */
+.tool-box {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #1a233a;
+    color: #fff;
+    font-size: 1rem;
+}
+
+button {
+    background: #3e8bff;
+    border: none;
+    padding: 14px;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #2f6fd6;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background: #121a2c;
+    border-radius: 8px;
+    color: #aee0ff;
+    min-height: 40px;
+}
+
+/* ======== FOOTER ======== */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #9aa3b8;
+    margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Study of Cryptography – Substitution Techniques</h1>
+    
+</header>
+
+<div class="container">
+
+    <!-- INTRO SECTION -->
+    <div class="section">
+        <h2>🔐 What is Cryptography?</h2>
+        <p>
+            Cryptography is the science of securing communication by transforming information into a form unreadable to unauthorized users.
+            One of the earliest and most fundamental categories of cryptography is the 
+            <strong>Substitution Cipher</strong>, where each character in the plaintext is replaced with another character.
+        </p>
+    </div>
+
+    <!-- TYPES SECTION -->
+    <div class="section">
+        <h2>🧩 Substitution Techniques</h2>
+        <p>Substitution techniques replace units of plaintext with ciphertext. Common types include:</p>
+        <ul>
+            <li><strong>Caesar Cipher</strong> – shifts each letter by a fixed number</li>
+            <li><strong>Monoalphabetic Cipher</strong> – uses a random substitution for each letter</li>
+            <li><strong>Playfair Cipher</strong> – uses digraph substitution</li>
+            <li><strong>Polyalphabetic Cipher</strong> – uses multiple substitution alphabets</li>
+        </ul>
+        <p>
+            Although simple by modern standards, these techniques laid the foundation for modern encryption systems.
+        </p>
+    </div>
+
+    <!-- INTERACTIVE TOOL -->
+    <div class="section">
+        <h2>🧪 Try It Yourself: Caesar Cipher Encryptor</h2>
+        <p>Experiment with Caesar Cipher. Type text and choose a shift value.</p>
+
+        <div class="tool-box">
+            <label>Enter Text:</label>
+            <input id="inputText" placeholder="Enter your plaintext...">
+
+            <label>Shift Value:</label>
+            <select id="shiftValue">
+                <option value="1">1</option>
+                <option value="3" selected>3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="13">13 (ROT13)</option>
+            </select>
+
+            <button onclick="encrypt()">Encrypt</button>
+
+            <div class="result" id="output">Your encrypted text will appear here.</div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Cryptography Explorer | Designed with ❤ using HTML, CSS & JavaScript
+</footer>
+
+<script>
+/* ======== CAESAR CIPHER SCRIPT ======== */
+function encrypt() {
+    const text = document.getElementById("inputText").value;
+    const shift = parseInt(document.getElementById("shiftValue").value);
+    let result = "";
+
+    for (let char of text) {
+        if (char.match(/[a-z]/i)) {
+            let code = char.charCodeAt(0);
+
+            // Uppercase letters
+            if (code >= 65 && code <= 90) {
+                char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+            }
+            // Lowercase letters
+            else if (code >= 97 && code <= 122) {
+                char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+            }
+        }
+        result += char;
+    }
+
+    document.getElementById("output").innerText = result || "Enter text to encrypt.";
+}
+</script>
+
+</body>
+</html>
